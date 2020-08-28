@@ -2,21 +2,27 @@ import path from "path";
 import fs from 'fs';
 
 import uploadConfig from '@config/upload'
-import { getRepository } from 'typeorm'
+import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User'
 import AppError from '@shared/errors/AppError';
+import {inject, injectable} from 'tsyringe';
 
-interface RequestDTO {
+interface IRequestDTO {
     user_id: string;
     avatarFileName: string;
 }
 
+@injectable()
 class UpdateUserAvatarService {
 
-    public async execute({ user_id, avatarFileName }: RequestDTO): Promise<User> {
-        const userRepository = getRepository(User);
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository) {
+    }
 
-        const user = await userRepository.findOne(user_id);
+    public async execute({ user_id, avatarFileName }: IRequestDTO): Promise<User> {
+
+        const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
             throw new AppError('Not auth', 401)
@@ -32,9 +38,9 @@ class UpdateUserAvatarService {
 
         user.avatar = avatarFileName;
 
-        await userRepository.save(user);
+        await this.usersRepository.save(user);
 
-        return user;
+        return user; 
     }
 
 
