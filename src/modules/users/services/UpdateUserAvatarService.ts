@@ -6,7 +6,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User'
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
-import IStorageProvider from '@shared/providers/StorageProvider/models/IStorageProvider'
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider'
 
 interface IRequestDTO {
     user_id: string;

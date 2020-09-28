@@ -3,7 +3,7 @@ import "reflect-metadata";
 import SendForgotPasswordEmailService from "./SendForgotPasswordEmailService";
 import FakeUsersRepositories from "../repositories/fakes/FakeUsersRepository";
 import FakeUserTokenRepository from "../repositories/fakes/FakeUserTokenRepository";
-import FakeMailProvider from "@shared/providers/MailProvider/fakes/FakeMailProvider";
+import FakeMailProvider from "@shared/container/providers/MailProvider/fakes/FakeMailProvider";
 
 import AppError from "@shared/errors/AppError";
 
